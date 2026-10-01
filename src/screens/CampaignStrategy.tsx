@@ -287,11 +287,14 @@ export default function CampaignStrategy({
 
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1100px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
       <div style={{ marginBottom: 40 }}>
         <div style={S.label}>{campaignTitle} · Strategy</div>
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em' }}>
+        <h1
+          className="text-2xl sm:text-3xl lg:text-4xl"
+          style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em' }}
+        >
           Campaign Strategy
         </h1>
         <p style={{ color: '#6B6560', fontSize: 14, margin: 0 }}>
@@ -302,7 +305,7 @@ export default function CampaignStrategy({
       </div>
 
       {/* Overview cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 40 }}>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
         {[
           { label: 'Objective', value: objectiveValue },
           { label: 'Duration', value: durationValue },
@@ -317,7 +320,7 @@ export default function CampaignStrategy({
       </div>
 
       {/* Core Message + Audience */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 40 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mb-8 sm:mb-10">
         <div style={{ ...S.card, padding: 24 }}>
           <div style={{ ...S.label, marginBottom: 10 }}>Core Message</div>
           <p style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, fontWeight: 300, color: '#EDE8DF', margin: 0, lineHeight: 1.5, letterSpacing: '-0.01em' }}>
@@ -344,16 +347,7 @@ export default function CampaignStrategy({
         {/* Campaign Memory Intelligence Banner */}
         {strategyInsights.length > 0 && (
           <div
-            style={{
-              padding: '14px 18px',
-              background: 'rgba(196,129,58,0.06)',
-              border: '1px solid rgba(196,129,58,0.25)',
-              borderRadius: 8,
-              marginBottom: 20,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
+            className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between p-3.5 sm:p-4 mb-5 rounded-lg border border-[rgba(196,129,58,0.25)] bg-[rgba(196,129,58,0.06)]"
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <SparkleIcon size={15} style={{ color: '#C4813A' }} />
@@ -388,7 +382,7 @@ export default function CampaignStrategy({
           <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 22, fontWeight: 400, color: '#EDE8DF', margin: 0, letterSpacing: '-0.02em' }}>Select Strategic Direction</h2>
           <SparkleIcon size={14} style={{ color: '#C4813A' }} />
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {strategies.map(d => {
             const selected = selectedDirection === d.strategy_type
             return (
@@ -450,7 +444,7 @@ export default function CampaignStrategy({
       {/* Timeline */}
       <div style={{ marginBottom: 40 }}>
         <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 22, fontWeight: 400, color: '#EDE8DF', margin: '0 0 20px', letterSpacing: '-0.02em' }}>Campaign Timeline</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(currentTimeline.length, 6)}, 1fr)`, gap: 8 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {currentTimeline.map((t, i) => (
             <div key={i} style={{ ...S.card, padding: 16 }}>
               <div style={{ ...S.label, marginBottom: 6 }}>{t.week}</div>
@@ -463,10 +457,7 @@ export default function CampaignStrategy({
       </div>
 
       {/* CTA */}
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: 28, background: '#111110', border: '1px solid #252320', borderRadius: 8,
-      }}>
+      <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between p-5 sm:p-7 rounded-lg border border-[#252320] bg-[#111110]">
         <div>
           <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, fontWeight: 400, color: '#EDE8DF', margin: '0 0 6px' }}>
             Proceed with <span style={{ color: activeStrategy?.color || '#C4813A' }}>{activeStrategy?.label || 'Story-Led'}</span> direction?
@@ -475,7 +466,7 @@ export default function CampaignStrategy({
             BrandForge will generate {activeStrategy?.total_pieces || 32} content pieces across {platformsValue} with BrandGuard verification.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 12, flexShrink: 0 }}>
+        <div className="flex flex-wrap sm:flex-nowrap gap-3 w-full sm:w-auto shrink-0">
           <button
             onClick={() => {
               const types = ['product', 'story', 'community']

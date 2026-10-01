@@ -30,13 +30,16 @@ export default function Overview({ navigate }: Props) {
   const topRec = analytics?.recommendations && analytics.recommendations.length > 0 ? analytics.recommendations[0] : null
 
   return (
-    <div style={{ padding: '48px 48px', maxWidth: 1180, margin: '0 auto' }}>
+    <div className="w-full max-w-[1180px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
       <div style={{ marginBottom: 36 }}>
         <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#6B6560' }}>
           EXECUTIVE DASHBOARD · CONTINUOUS OPTIMIZATION
         </div>
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '8px 0 8px', letterSpacing: '-0.03em' }}>
+        <h1
+          className="text-2xl sm:text-3xl lg:text-4xl"
+          style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '8px 0 8px', letterSpacing: '-0.03em' }}
+        >
           BrandForge AI Control Center
         </h1>
         <p style={{ color: '#8C857B', fontSize: 14, margin: 0, maxWidth: 650, lineHeight: 1.5 }}>
@@ -45,7 +48,7 @@ export default function Overview({ navigate }: Props) {
       </div>
 
       {/* Primary Workflow Pipeline Steps */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
         <div
           onClick={() => navigate('brand-dna')}
           style={{ background: '#111110', border: '1px solid #252320', borderRadius: 8, padding: 20, cursor: 'pointer', transition: 'border-color 0.15s ease' }}
@@ -124,7 +127,7 @@ export default function Overview({ navigate }: Props) {
       </div>
 
       {/* Performance Snapshot & Continuous Optimization Banner */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 28 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-7">
         {/* Performance Snapshot Card */}
         <div
           onClick={() => navigate('analytics')}
@@ -144,7 +147,7 @@ export default function Overview({ navigate }: Props) {
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 16 }}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
             <div>
               <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 9, color: '#6B6560' }}>REACH</div>
               <div style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, color: '#EDE8DF' }}>
@@ -208,7 +211,7 @@ export default function Overview({ navigate }: Props) {
       </div>
 
       {/* Secondary Row: Governance & Intelligence */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <div
           onClick={() => navigate('campaign-memory')}
           style={{ background: '#111110', border: '1px solid #252320', borderRadius: 8, padding: 24, cursor: 'pointer', transition: 'border-color 0.15s ease' }}

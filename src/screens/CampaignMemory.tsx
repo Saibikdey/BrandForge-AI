@@ -130,9 +130,9 @@ export default function CampaignMemory({ navigate }: Props) {
   }
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1150px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
         <div>
           <div style={{ ...S.label, color: '#C4813A', display: 'flex', alignItems: 'center', gap: 6 }}>
             <SparkleIcon size={12} style={{ color: '#C4813A' }} />
@@ -141,12 +141,12 @@ export default function CampaignMemory({ navigate }: Props) {
           <h1
             style={{
               fontFamily: 'Fraunces, Georgia, serif',
-              fontSize: 34,
               fontWeight: 300,
               color: '#EDE8DF',
               margin: '8px 0 8px',
               letterSpacing: '-0.03em',
             }}
+            className="text-2xl sm:text-3xl lg:text-[34px]"
           >
             Campaign Memory
           </h1>
@@ -155,7 +155,7 @@ export default function CampaignMemory({ navigate }: Props) {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div className="flex flex-wrap sm:flex-nowrap gap-3 w-full sm:w-auto">
           <button
             onClick={handleRefresh}
             disabled={refreshing || loading}
@@ -224,14 +224,7 @@ export default function CampaignMemory({ navigate }: Props) {
       )}
 
       {/* Memory Health Stats Bar */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 16,
-          marginBottom: 32,
-        }}
-      >
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
         <div style={{ ...S.card, padding: '18px 20px' }}>
           <div style={{ ...S.label, marginBottom: 6 }}>Campaigns Analyzed</div>
           <div
@@ -302,15 +295,7 @@ export default function CampaignMemory({ navigate }: Props) {
       </div>
 
       {/* Category Filter Navigation */}
-      <div
-        style={{
-          display: 'flex',
-          gap: 8,
-          borderBottom: '1px solid #1C1B19',
-          paddingBottom: 12,
-          marginBottom: 28,
-        }}
-      >
+      <div className="flex gap-2 border-b border-[#1C1B19] pb-3 mb-7 overflow-x-auto no-scrollbar scrollbar-none">
         {[
           { id: 'all', label: 'All Insights' },
           { id: 'strategy', label: 'Strategy Direction' },
@@ -336,6 +321,7 @@ export default function CampaignMemory({ navigate }: Props) {
                 cursor: 'pointer',
                 transition: 'all 0.12s ease',
               }}
+              className="whitespace-nowrap flex-shrink-0"
             >
               {tab.label}
             </button>
@@ -396,16 +382,16 @@ export default function CampaignMemory({ navigate }: Props) {
             return (
               <div
                 key={ins.id}
+                className="p-4 sm:p-6"
                 style={{
                   ...S.card,
-                  padding: 24,
                   borderLeft: `3px solid ${catColor}`,
                   transition: 'border-color 0.15s ease',
                 }}
               >
                 {/* Card Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div className="flex flex-wrap sm:flex-nowrap justify-between items-center gap-2 mb-3.5">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                     <span
                       style={{
                         fontFamily: 'DM Mono, monospace',
@@ -608,7 +594,7 @@ export default function CampaignMemory({ navigate }: Props) {
 
       {/* Triple Deep-Dive Intelligence Panels */}
       {!loading && memoryData && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20, marginTop: 40 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-10">
           {/* Governance Learnings Panel */}
           <div style={{ ...S.card, padding: 22 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
@@ -768,15 +754,11 @@ export default function CampaignMemory({ navigate }: Props) {
 
       {/* Bottom Action Footer */}
       <div
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 sm:p-6 mt-8 sm:mt-10"
         style={{
-          marginTop: 40,
-          padding: 24,
           background: 'rgba(196,129,58,0.05)',
           border: '1px solid rgba(196,129,58,0.2)',
           borderRadius: 8,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
         }}
       >
         <div>
@@ -804,6 +786,7 @@ export default function CampaignMemory({ navigate }: Props) {
             fontWeight: 600,
             cursor: 'pointer',
           }}
+          className="w-full sm:w-auto justify-center whitespace-nowrap"
         >
           Launch New Campaign with Memory <ArrowRightIcon size={14} />
         </button>

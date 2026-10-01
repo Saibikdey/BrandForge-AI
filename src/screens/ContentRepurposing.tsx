@@ -349,16 +349,19 @@ export default function ContentRepurposing({
   }
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1150px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
-      <div style={{ marginBottom: 36 }}>
+      <div className="mb-6 sm:mb-9">
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
           <span style={S.label}>Hero-to-Derivative Adaptation Engine</span>
           <span style={{ fontSize: 9, fontFamily: 'DM Mono, monospace', padding: '2px 7px', borderRadius: 4, background: 'rgba(196,129,58,0.12)', color: '#C4813A', border: '1px solid rgba(196,129,58,0.25)' }}>
             MULTI-CHANNEL ORCHESTRATION
           </span>
         </div>
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '0 0 8px', letterSpacing: '-0.03em' }}>
+        <h1
+          style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '0 0 8px', letterSpacing: '-0.03em' }}
+          className="text-2xl sm:text-3xl lg:text-4xl"
+        >
           Content Repurposing
         </h1>
         <p style={{ color: '#8C857B', fontSize: 14, margin: 0, maxWidth: 720, lineHeight: 1.5 }}>
@@ -382,7 +385,7 @@ export default function ContentRepurposing({
       )}
 
       {/* Top Configuration Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24, marginBottom: 28 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 mb-7 sm:mb-8">
         {/* Source Content Panel */}
         <div style={{ ...S.card, padding: 24 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -483,7 +486,7 @@ export default function ContentRepurposing({
             </div>
           ) : (
             <div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 mb-3">
                 <div>
                   <label style={{ ...S.label, display: 'block', marginBottom: 4, fontSize: 9 }}>Source Headline</label>
                   <input
@@ -537,7 +540,7 @@ export default function ContentRepurposing({
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 mb-5">
               {TARGET_PLATFORMS.map(p => {
                 const isSelected = targetPlatforms.includes(p.id)
                 return (
@@ -622,7 +625,7 @@ export default function ContentRepurposing({
 
       {/* Repurposed Derivatives Output Section */}
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={S.label}>Generated Derivative Assets</span>
             {repurposedItems.length > 0 && (
@@ -680,7 +683,7 @@ export default function ContentRepurposing({
             </button>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: 20 }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
             {repurposedItems.map(item => {
               const platformMeta = TARGET_PLATFORMS.find(p => p.id === item.platform) || {
                 name: item.platform,
@@ -695,9 +698,9 @@ export default function ContentRepurposing({
               return (
                 <div
                   key={item.id || item.platform}
+                  className="p-4 sm:p-6"
                   style={{
                     ...S.card,
-                    padding: 24,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -706,7 +709,7 @@ export default function ContentRepurposing({
                 >
                   <div>
                     {/* Header */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                    <div className="flex flex-wrap sm:flex-nowrap justify-between items-center gap-2 mb-3.5">
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 11, fontWeight: 600, color: platformMeta.color }}>
                           {platformMeta.name.toUpperCase()}
@@ -814,7 +817,7 @@ export default function ContentRepurposing({
                   </div>
 
                   {/* Card Bottom Actions */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 14, borderTop: '1px solid #1C1B19', marginTop: 10 }}>
+                  <div className="flex flex-wrap sm:flex-nowrap justify-between items-center gap-2 pt-3.5 border-t border-[#1C1B19] mt-2.5">
                     <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#6B6560' }}>
                       {item.body.length} chars · ~{Math.ceil(item.body.split(/\s+/).length / 130)} min
                     </div>

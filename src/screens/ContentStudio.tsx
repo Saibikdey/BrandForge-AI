@@ -384,13 +384,16 @@ export default function ContentStudio({
   }
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1100px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
       <div style={{ marginBottom: 32 }}>
         <div style={S.label}>
           {campaign?.name || 'Active Campaign'} · Content Studio
         </div>
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em' }}>
+        <h1
+          className="text-2xl sm:text-3xl lg:text-4xl"
+          style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em' }}
+        >
           AI Content Studio
         </h1>
         <p style={{ color: '#6B6560', fontSize: 14, margin: 0 }}>
@@ -423,7 +426,7 @@ export default function ContentStudio({
         </div>
 
         {/* Strategy Buttons */}
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${strategies.length || 3}, 1fr)`, gap: 10 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
           {strategies.map(s => {
             const isSelected = (selectedStrategyId || activeStrategy?.id) === s.id
             return (
@@ -816,10 +819,10 @@ export default function ContentStudio({
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
-            padding: 20,
+            padding: 16,
           }}
         >
-          <div style={{ ...S.card, padding: 32, maxWidth: 500, width: '100%', background: '#141312' }}>
+          <div className="w-full max-w-lg p-5 sm:p-8 max-h-[90vh] overflow-y-auto rounded-lg border border-[#252320] bg-[#141312] box-border">
             <div style={{ ...S.label, color: '#C4813A', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
               <ClockIcon size={12} style={{ color: '#C4813A' }} />
               SCHEDULE MULTI-CHANNEL PUBLICATION
@@ -866,7 +869,7 @@ export default function ContentStudio({
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label style={{ ...S.label, display: 'block', marginBottom: 6 }}>TIME</label>
                   <input

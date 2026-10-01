@@ -66,12 +66,15 @@ export default function Campaigns({ navigate, onCampaignSelected }: Props) {
   }
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1150px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <div style={S.label}>CAMPAIGN PORTFOLIO · LIFECYCLE MANAGEMENT</div>
-          <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '8px 0 6px', letterSpacing: '-0.03em' }}>
+          <h1
+            style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '8px 0 6px', letterSpacing: '-0.03em' }}
+            className="text-2xl sm:text-3xl lg:text-4xl"
+          >
             All Marketing Campaigns
           </h1>
           <p style={{ color: '#8C857B', fontSize: 14, margin: 0, maxWidth: 620, lineHeight: 1.5 }}>
@@ -87,6 +90,7 @@ export default function Campaigns({ navigate, onCampaignSelected }: Props) {
             borderRadius: 6, color: '#0A0908', fontFamily: 'Inter, sans-serif',
             fontSize: 13, fontWeight: 600, cursor: 'pointer',
           }}
+          className="w-full sm:w-auto justify-center"
         >
           <SparkleIcon size={14} /> Create New Campaign
         </button>
@@ -116,15 +120,16 @@ export default function Campaigns({ navigate, onCampaignSelected }: Props) {
           </button>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 20 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {campaigns.map(camp => {
             const summary = analytics?.campaigns_summary.find(s => s.id === camp.id)
             return (
               <div
                 key={camp.id}
+                className="p-4 sm:p-6 flex flex-col justify-between gap-4"
                 style={{
-                  ...S.card, padding: 24, display: 'flex', flexDirection: 'column',
-                  justifyContent: 'space-between', gap: 16, transition: 'border-color 0.15s ease',
+                  ...S.card,
+                  transition: 'border-color 0.15s ease',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = '#C4813A')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = '#252320')}

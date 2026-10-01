@@ -201,7 +201,7 @@ export default function CampaignCalendar({ navigate }: Props) {
   const items = calendarData?.items || []
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1150px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Toast Notification */}
       {toastMessage && (
         <div
@@ -232,16 +232,16 @@ export default function CampaignCalendar({ navigate }: Props) {
       )}
 
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <div style={{ ...S.label, color: '#C4813A', display: 'flex', alignItems: 'center', gap: 6 }}>
             <ClockIcon size={12} style={{ color: '#C4813A' }} />
             MULTI-CHANNEL PUBLISHING
           </div>
           <h1
+            className="text-2xl sm:text-3xl lg:text-4xl"
             style={{
               fontFamily: 'Fraunces, Georgia, serif',
-              fontSize: 34,
               fontWeight: 300,
               color: '#EDE8DF',
               margin: '8px 0 8px',
@@ -255,7 +255,7 @@ export default function CampaignCalendar({ navigate }: Props) {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div className="flex flex-wrap gap-3 w-full sm:w-auto">
           <button
             onClick={loadCalendar}
             disabled={loading}
@@ -324,14 +324,7 @@ export default function CampaignCalendar({ navigate }: Props) {
       )}
 
       {/* Summary Metrics Bar */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 16,
-          marginBottom: 32,
-        }}
-      >
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-7">
         <div style={{ ...S.card, padding: '18px 20px', borderLeft: '3px solid #5B9BC4' }}>
           <div style={{ ...S.label, marginBottom: 6 }}>Scheduled Queue</div>
           <div style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 26, color: '#5B9BC4' }}>
@@ -374,23 +367,10 @@ export default function CampaignCalendar({ navigate }: Props) {
       </div>
 
       {/* Filter and View Controls */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 16,
-          padding: '16px 20px',
-          background: '#131211',
-          border: '1px solid #201E1C',
-          borderRadius: 8,
-          marginBottom: 28,
-        }}
-      >
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 p-4 sm:p-5 rounded-lg border border-[#201E1C] bg-[#131211] mb-7">
         {/* Platform Filters */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#6B6560', textTransform: 'uppercase' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#6B6560', textTransform: 'uppercase', marginRight: 2 }}>
             Platform:
           </span>
           {['all', 'instagram', 'linkedin', 'x', 'youtube_shorts'].map(p => {
@@ -420,9 +400,9 @@ export default function CampaignCalendar({ navigate }: Props) {
         </div>
 
         {/* Status Filters & View Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#6B6560', textTransform: 'uppercase' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#6B6560', textTransform: 'uppercase', marginRight: 2 }}>
               Status:
             </span>
             {['all', 'scheduled', 'published', 'failed', 'cancelled'].map(st => {
@@ -451,7 +431,7 @@ export default function CampaignCalendar({ navigate }: Props) {
             })}
           </div>
 
-          <div style={{ borderLeft: '1px solid #252320', paddingLeft: 12, display: 'flex', gap: 4 }}>
+          <div style={{ borderLeft: '1px solid #252320', paddingLeft: 10, display: 'flex', gap: 4 }}>
             {(['list', 'week', 'month'] as const).map(v => (
               <button
                 key={v}
@@ -913,19 +893,10 @@ export default function CampaignCalendar({ navigate }: Props) {
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
-            padding: 24,
+            padding: 16,
           }}
         >
-          <div
-            style={{
-              background: '#111110',
-              border: '1px solid #252320',
-              borderRadius: 8,
-              padding: 28,
-              maxWidth: 440,
-              width: '100%',
-            }}
-          >
+          <div className="w-full max-w-md p-5 sm:p-7 max-h-[90vh] overflow-y-auto rounded-lg border border-[#252320] bg-[#111110] box-border">
             <h3
               style={{
                 fontFamily: 'Fraunces, Georgia, serif',

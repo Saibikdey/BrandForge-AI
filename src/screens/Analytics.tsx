@@ -213,7 +213,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
   )
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1180px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Toast Notification */}
       {toastMessage && (
         <div style={{ position: 'fixed', bottom: 24, right: 24, padding: '12px 20px', background: '#181715', border: '1px solid #5BA373', borderRadius: 6, color: '#EDE8DF', fontSize: 13, zIndex: 100, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}>
@@ -223,7 +223,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
       )}
 
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16, marginBottom: 28 }}>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-7">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
             <span style={S.label}>CONTINUOUS OPTIMIZATION · MEASUREMENT & LEARNING</span>
@@ -231,7 +231,10 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
               DEMO PERFORMANCE ENGINE
             </span>
           </div>
-          <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '0 0 6px', letterSpacing: '-0.03em' }}>
+          <h1
+            className="text-2xl sm:text-3xl lg:text-4xl"
+            style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '0 0 6px', letterSpacing: '-0.03em' }}
+          >
             Campaign Analytics
           </h1>
           <p style={{ color: '#8C857B', fontSize: 14, margin: 0, maxWidth: 620, lineHeight: 1.5 }}>
@@ -240,7 +243,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <div className="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
           <button
             onClick={() => setShowEntryModal(true)}
             style={{
@@ -348,7 +351,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
       </div>
 
       {/* KPI Cards Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, marginBottom: 28 }}>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-7">
         <div style={{ ...S.card, padding: '20px 22px' }}>
           <div style={{ ...S.label, marginBottom: 6 }}>TOTAL REACH</div>
           <div style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 32, fontWeight: 300, color: '#EDE8DF', letterSpacing: '-0.02em' }}>
@@ -487,7 +490,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
       </div>
 
       {/* Two Column Layout: Platform Comparison & AI Insights */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: 20, marginBottom: 28 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-7">
         {/* Platform Performance Comparison */}
         <div style={{ ...S.card, padding: '24px 28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
@@ -632,7 +635,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {currentRecommendations?.map(rec => (
             <div
               key={rec.id}
@@ -776,8 +779,8 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
 
       {/* Add Performance Data Modal */}
       {showEntryModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: 20 }}>
-          <div style={{ ...S.card, padding: 32, maxWidth: 540, width: '100%', background: '#141312' }}>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: 16 }}>
+          <div className="w-full max-w-lg p-5 sm:p-8 max-h-[90vh] overflow-y-auto rounded-lg border border-[#252320] bg-[#141312] box-border">
             <div style={{ ...S.label, color: '#C4813A', marginBottom: 8 }}>
               DEMO PERFORMANCE DATA ENTRY
             </div>
@@ -809,7 +812,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
                 </select>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label style={{ ...S.label, display: 'block', marginBottom: 6 }}>IMPRESSIONS</label>
                   <input
@@ -832,7 +835,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 8 }}>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div>
                   <label style={{ ...S.label, display: 'block', marginBottom: 4, fontSize: 9 }}>LIKES</label>
                   <input
@@ -875,7 +878,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label style={{ ...S.label, display: 'block', marginBottom: 6 }}>CLICKS (LINK/CTA)</label>
                   <input

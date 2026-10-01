@@ -196,12 +196,15 @@ export default function BrandDNA({ navigate }: Props) {
   ]
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1150px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
-      <div style={{ marginBottom: 40, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
+      <div className="mb-6 sm:mb-9 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <div style={S.label}>Brand DNA</div>
-          <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+          <h1
+            style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em', lineHeight: 1.1 }}
+            className="text-2xl sm:text-3xl lg:text-4xl"
+          >
             Your Brand Foundation
           </h1>
           <p style={{ color: '#6B6560', fontSize: 14, margin: 0 }}>
@@ -220,6 +223,7 @@ export default function BrandDNA({ navigate }: Props) {
             cursor: saving ? 'not-allowed' : 'pointer',
             transition: 'background 0.2s ease',
           }}
+          className="w-full sm:w-auto justify-center"
         >
           {saving ? (
             'Saving...'
@@ -234,8 +238,8 @@ export default function BrandDNA({ navigate }: Props) {
       </div>
 
       {/* Status bar */}
-      <div style={{ ...S.card, padding: '18px 24px', marginBottom: 32, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+      <div className="p-4 sm:p-5 mb-6 sm:mb-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4" style={S.card}>
+        <div className="flex flex-wrap items-center gap-4 sm:gap-6">
           <div>
             <div style={{ ...S.label, marginBottom: 4 }}>Brand DNA Completeness</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -245,8 +249,8 @@ export default function BrandDNA({ navigate }: Props) {
               <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 14, color: '#C4813A' }}>{completeness}%</span>
             </div>
           </div>
-          <div style={{ width: 1, height: 36, background: '#252320' }} />
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div className="hidden sm:block" style={{ width: 1, height: 36, background: '#252320' }} />
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             {[
               { label: 'Identity', done: true },
               { label: 'Voice', done: true },
@@ -261,7 +265,7 @@ export default function BrandDNA({ navigate }: Props) {
             ))}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 10 }}>
+        <div className="flex flex-wrap gap-2 w-full lg:w-auto">
           <button style={{
             display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px',
             background: 'transparent', border: '1px solid #252320', borderRadius: 6,
@@ -287,30 +291,32 @@ export default function BrandDNA({ navigate }: Props) {
       </div>
 
       {/* Section tabs */}
-      <div style={{ display: 'flex', gap: 2, marginBottom: 32, padding: '4px', background: '#0D0C0B', borderRadius: 8, border: '1px solid #1C1B19', overflowX: 'auto' }}>
+      <div className="flex gap-1.5 sm:gap-2 mb-6 sm:mb-8 p-1.5 bg-[#0D0C0B] rounded-lg border border-[#1C1B19] overflow-x-auto no-scrollbar scrollbar-none">
         {sections.map(s => (
           <button key={s} onClick={() => setActiveSection(s)} style={{
             padding: '7px 14px', borderRadius: 6, border: 'none', background: activeSection === s ? '#1E1D1B' : 'transparent',
             color: activeSection === s ? '#EDE8DF' : '#6B6560', fontSize: 12, fontFamily: 'Inter, sans-serif',
             cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.15s ease',
-          }}>
+          }}
+          className="whitespace-nowrap flex-shrink-0"
+          >
             {s}
           </button>
         ))}
       </div>
 
       {/* Content */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Main section */}
         <div>
           {activeSection === 'Identity' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ ...S.card, padding: 28 }}>
+              <div className="p-4 sm:p-7" style={S.card}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
                   <span style={S.sectionNum}>01</span>
                   <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, fontWeight: 400, color: '#EDE8DF', margin: 0 }}>Brand Identity</h3>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   {identityFields.map(f => (
                     <div key={f.label}>
                       <label style={{ ...S.label, marginBottom: 6, display: 'block' }}>{f.label}</label>
@@ -342,12 +348,12 @@ export default function BrandDNA({ navigate }: Props) {
                   ))}
                 </div>
               </div>
-              <div style={{ ...S.card, padding: 28 }}>
+              <div className="p-4 sm:p-7" style={S.card}>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
                   <span style={S.sectionNum}>02</span>
                   <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, fontWeight: 400, color: '#EDE8DF', margin: 0 }}>Brand Values</h3>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
                   {values.map(v => (
                     <div key={v} style={{
                       padding: '12px 16px', background: 'rgba(196,129,58,0.06)', border: '1px solid rgba(196,129,58,0.15)',
@@ -362,7 +368,7 @@ export default function BrandDNA({ navigate }: Props) {
           )}
 
           {activeSection === 'Voice' && (
-            <div style={{ ...S.card, padding: 28 }}>
+            <div className="p-4 sm:p-7" style={S.card}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
                 <span style={S.sectionNum}>02</span>
                 <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, fontWeight: 400, color: '#EDE8DF', margin: 0 }}>Brand Voice & Tone</h3>
@@ -435,7 +441,7 @@ export default function BrandDNA({ navigate }: Props) {
           {activeSection === 'Pillars' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {messagingPillars.map((p, i) => (
-                <div key={i} style={{ ...S.card, padding: 24, borderLeft: '2px solid #C4813A', borderRadius: '0 8px 8px 0' }}>
+                <div key={i} className="p-4 sm:p-6" style={{ ...S.card, borderLeft: '2px solid #C4813A', borderRadius: '0 8px 8px 0' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                     <span style={{ fontFamily: 'DM Mono, monospace', fontSize: 11, color: '#C4813A' }}>0{i + 1}</span>
                     <h4 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 17, fontWeight: 400, color: '#EDE8DF', margin: 0 }}>{p.title}</h4>
@@ -447,8 +453,8 @@ export default function BrandDNA({ navigate }: Props) {
           )}
 
           {activeSection === "Do & Don't" && (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div style={{ ...S.card, padding: 24, borderTop: '2px solid #5BA373' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div className="p-4 sm:p-6" style={{ ...S.card, borderTop: '2px solid #5BA373' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <CheckIcon size={14} style={{ color: '#5BA373' }} />
                   <span style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 16, color: '#5BA373', fontWeight: 400 }}>Do</span>
@@ -460,7 +466,7 @@ export default function BrandDNA({ navigate }: Props) {
                   </div>
                 ))}
               </div>
-              <div style={{ ...S.card, padding: 24, borderTop: '2px solid #C45858' }}>
+              <div className="p-4 sm:p-6" style={{ ...S.card, borderTop: '2px solid #C45858' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <span style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 16, color: '#C45858', fontWeight: 400 }}>Don't</span>
                 </div>
@@ -475,14 +481,14 @@ export default function BrandDNA({ navigate }: Props) {
           )}
 
           {(activeSection === 'Audience' || activeSection === 'Visual' || activeSection === 'Products') && (
-            <div style={{ ...S.card, padding: 28 }}>
+            <div className="p-4 sm:p-7" style={S.card}>
               {activeSection === 'Audience' && (
                 <>
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
                     <span style={S.sectionNum}>03</span>
                     <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, fontWeight: 400, color: '#EDE8DF', margin: 0 }}>Target Audience</h3>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 24 }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-6">
                     {[
                       { label: 'Primary', name: 'The Professional Creative', age: '28–42', role: 'Graphic designers, art directors, brand designers', pain: 'Too many tools, too little time, inconsistent output quality' },
                       { label: 'Secondary', name: 'The Creative Entrepreneur', age: '24–36', role: 'Freelancers, indie studio founders, content creators', pain: 'Scaling creative output without hiring a full team' },
@@ -509,7 +515,7 @@ export default function BrandDNA({ navigate }: Props) {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                     <div>
                       <div style={{ ...S.label, marginBottom: 12 }}>Brand Colors</div>
-                      <div style={{ display: 'flex', gap: 12 }}>
+                      <div className="flex flex-wrap gap-3 sm:gap-4">
                         {[
                           { name: 'Obsidian', hex: '#0A0908', role: 'Primary' },
                           { name: 'Copper', hex: '#C4813A', role: 'Accent' },
@@ -527,7 +533,7 @@ export default function BrandDNA({ navigate }: Props) {
                     </div>
                     <div style={{ borderTop: '1px solid #252320', paddingTop: 20 }}>
                       <div style={{ ...S.label, marginBottom: 12 }}>Typography</div>
-                      <div style={{ display: 'flex', gap: 20 }}>
+                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                         <div>
                           <div style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 28, fontWeight: 300, color: '#EDE8DF', marginBottom: 4 }}>Fraunces</div>
                           <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, color: '#6B6560' }}>Display / Headings</div>

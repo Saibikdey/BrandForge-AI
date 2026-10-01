@@ -152,10 +152,13 @@ export default function CreateCampaign({ navigate, onCampaignCreated }: Props) {
   }
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1000px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       <div style={{ marginBottom: 40 }}>
         <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#3A3830' }}>New Campaign</div>
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em' }}>
+        <h1
+          className="text-2xl sm:text-3xl lg:text-4xl"
+          style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '10px 0 8px', letterSpacing: '-0.03em' }}
+        >
           Build Your Campaign
         </h1>
         <p style={{ color: '#6B6560', fontSize: 14, margin: 0 }}>
@@ -196,7 +199,7 @@ export default function CreateCampaign({ navigate, onCampaignCreated }: Props) {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 32, alignItems: 'start' }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 lg:gap-8 items-start">
         {/* Form */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <div style={{ ...S.card, padding: 28 }}>
@@ -213,7 +216,7 @@ export default function CreateCampaign({ navigate, onCampaignCreated }: Props) {
                   onBlur={e => (e.target.style.borderColor = '#252320')}
                 />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label style={S.label}>Product / Service</label>
                   <select style={{ ...S.input, appearance: 'none', cursor: 'pointer' }} value={form.product} onChange={e => setForm(f => ({ ...f, product: e.target.value }))}>
@@ -239,7 +242,7 @@ export default function CreateCampaign({ navigate, onCampaignCreated }: Props) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
                 <label style={S.label}>Campaign Objective</label>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
                   {objectives.map(o => (
                     <button
                       key={o}
@@ -272,7 +275,7 @@ export default function CreateCampaign({ navigate, onCampaignCreated }: Props) {
 
           <div style={{ ...S.card, padding: 28 }}>
             <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18, fontWeight: 400, color: '#EDE8DF', margin: '0 0 24px' }}>Platforms</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
               {platforms.map(p => {
                 const active = selectedPlatforms.includes(p)
                 return (

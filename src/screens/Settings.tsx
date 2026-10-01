@@ -152,16 +152,19 @@ export default function Settings({ navigate }: Props) {
   ]
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1150px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Header */}
-      <div style={{ marginBottom: 36 }}>
+      <div className="mb-6 sm:mb-9">
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
           <span style={S.label}>System & Workspace Configuration</span>
           <span style={{ fontSize: 9, fontFamily: 'DM Mono, monospace', padding: '2px 7px', borderRadius: 4, background: 'rgba(91,163,115,0.12)', color: '#5BA373', border: '1px solid rgba(91,163,115,0.25)' }}>
             OPERATIONAL
           </span>
         </div>
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 36, fontWeight: 300, color: '#EDE8DF', margin: '0 0 8px', letterSpacing: '-0.03em' }}>
+        <h1
+          style={{ fontFamily: 'Fraunces, Georgia, serif', fontWeight: 300, color: '#EDE8DF', margin: '0 0 8px', letterSpacing: '-0.03em' }}
+          className="text-2xl sm:text-3xl lg:text-4xl"
+        >
           System Settings
         </h1>
         <p style={{ color: '#8C857B', fontSize: 14, margin: 0, maxWidth: 720, lineHeight: 1.5 }}>
@@ -185,7 +188,7 @@ export default function Settings({ navigate }: Props) {
       )}
 
       {/* Tab Navigation */}
-      <div style={{ display: 'flex', gap: 4, marginBottom: 28, padding: 4, background: '#0D0C0B', borderRadius: 8, border: '1px solid #1C1B19', overflowX: 'auto' }}>
+      <div className="flex gap-1.5 sm:gap-2 mb-6 sm:mb-8 p-1.5 bg-[#0D0C0B] rounded-lg border border-[#1C1B19] overflow-x-auto no-scrollbar scrollbar-none">
         {tabs.map(tab => {
           const isActive = activeTab === tab.id
           return (
@@ -205,6 +208,7 @@ export default function Settings({ navigate }: Props) {
                 whiteSpace: 'nowrap',
                 transition: 'all 0.15s ease',
               }}
+              className="whitespace-nowrap flex-shrink-0"
             >
               {tab.label}
             </button>
@@ -215,8 +219,8 @@ export default function Settings({ navigate }: Props) {
       {/* Tab 1: Workspace & Brand Profile */}
       {activeTab === 'workspace' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div style={{ ...S.card, padding: 28 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+          <div className="p-4 sm:p-7" style={S.card}>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
               <div>
                 <span style={S.label}>Brand Profile Parameters</span>
                 <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18, color: '#EDE8DF', margin: '4px 0 0', fontWeight: 400 }}>
@@ -235,7 +239,7 @@ export default function Settings({ navigate }: Props) {
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 mb-4">
               <div>
                 <label style={{ ...S.label, display: 'block', marginBottom: 6, fontSize: 9 }}>Brand Name</label>
                 <input
@@ -293,6 +297,7 @@ export default function Settings({ navigate }: Props) {
                   border: 'none', borderRadius: 6, cursor: saving ? 'not-allowed' : 'pointer',
                   fontSize: 13, fontWeight: 600, fontFamily: 'Inter, sans-serif',
                 }}
+                className="w-full sm:w-auto justify-center"
               >
                 {saving ? 'Saving...' : 'Save Workspace Parameters'}
               </button>
@@ -300,7 +305,7 @@ export default function Settings({ navigate }: Props) {
           </div>
 
           {/* Quick Stats Banner */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div style={{ ...S.card, padding: 20 }}>
               <span style={S.label}>Brand DNA Completeness</span>
               <div style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 28, color: '#EDE8DF', margin: '8px 0 4px' }}>
@@ -337,7 +342,7 @@ export default function Settings({ navigate }: Props) {
       {/* Tab 2: BrandGuard Governance */}
       {activeTab === 'governance' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div style={{ ...S.card, padding: 28 }}>
+          <div className="p-4 sm:p-7" style={S.card}>
             <div style={{ marginBottom: 20 }}>
               <span style={S.label}>Automated Governance & Risk Controls</span>
               <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18, color: '#EDE8DF', margin: '4px 0 6px', fontWeight: 400 }}>
@@ -351,7 +356,7 @@ export default function Settings({ navigate }: Props) {
             {/* Policies list */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
               {settingsData?.governance_policies?.map(policy => (
-                <div key={policy.id} style={{ padding: '16px 18px', background: '#141312', border: '1px solid #1C1B19', borderRadius: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div key={policy.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-4.5" style={{ background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
                   <div style={{ maxWidth: 640 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                       <ShieldCheckIcon size={14} style={{ color: '#5BA373' }} />
@@ -367,7 +372,7 @@ export default function Settings({ navigate }: Props) {
                     </div>
                   </div>
 
-                  <div style={{ textAlign: 'right' }}>
+                  <div className="text-left sm:text-right">
                     <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 12, color: '#C4813A' }}>
                       {policy.rule_count} Rules
                     </div>
@@ -438,7 +443,7 @@ export default function Settings({ navigate }: Props) {
             </div>
           </div>
 
-          <div style={{ ...S.card, padding: 28 }}>
+          <div className="p-4 sm:p-7" style={S.card}>
             <div style={{ marginBottom: 20 }}>
               <span style={S.label}>Configured Social Platforms</span>
               <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18, color: '#EDE8DF', margin: '4px 0 0', fontWeight: 400 }}>
@@ -446,7 +451,7 @@ export default function Settings({ navigate }: Props) {
               </h3>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14, marginBottom: 28 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 mb-6 sm:mb-7">
               {settingsData?.publishing_channels?.map(channel => (
                 <div key={channel.id} style={{ padding: '16px 18px', background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
@@ -491,6 +496,7 @@ export default function Settings({ navigate }: Props) {
                     background: '#C4813A', color: '#0A0908', border: 'none', borderRadius: 6,
                     cursor: saving ? 'not-allowed' : 'pointer', fontSize: 12, fontWeight: 600,
                   }}
+                  className="w-full sm:w-auto justify-center"
                 >
                   {saving ? 'Updating...' : 'Save Timezone Preference'}
                 </button>
@@ -503,7 +509,7 @@ export default function Settings({ navigate }: Props) {
       {/* Tab 4: AI & Intelligence Engine */}
       {activeTab === 'ai' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div style={{ ...S.card, padding: 28 }}>
+          <div className="p-4 sm:p-7" style={S.card}>
             <div style={{ marginBottom: 20 }}>
               <span style={S.label}>AI Models & Generation Engine</span>
               <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18, color: '#EDE8DF', margin: '4px 0 0', fontWeight: 400 }}>
@@ -511,7 +517,7 @@ export default function Settings({ navigate }: Props) {
               </h3>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginBottom: 24 }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 mb-5 sm:mb-6">
               <div style={{ padding: 20, background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                   <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 14, fontWeight: 600, color: '#EDE8DF' }}>
@@ -567,7 +573,7 @@ export default function Settings({ navigate }: Props) {
             {/* Model Hyperparameters */}
             <div style={{ padding: 18, background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
               <span style={{ ...S.label, display: 'block', marginBottom: 10 }}>Active Sampling Temperatures</span>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
                 <div>
                   <div style={{ fontSize: 11, color: '#6B6560' }}>Strategy & Content Generation</div>
                   <div style={{ fontFamily: 'DM Mono, monospace', fontSize: 14, color: '#EDE8DF' }}>temperature = 0.7</div>
@@ -589,7 +595,7 @@ export default function Settings({ navigate }: Props) {
       {/* Tab 5: System Diagnostics */}
       {activeTab === 'diagnostics' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div style={{ ...S.card, padding: 28 }}>
+          <div className="p-4 sm:p-7" style={S.card}>
             <div style={{ marginBottom: 20 }}>
               <span style={S.label}>Runtime Diagnostics & Source of Truth</span>
               <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18, color: '#EDE8DF', margin: '4px 0 0', fontWeight: 400 }}>
@@ -598,7 +604,7 @@ export default function Settings({ navigate }: Props) {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-              <div style={{ padding: '14px 18px', background: '#141312', border: '1px solid #1C1B19', borderRadius: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 sm:p-4" style={{ background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
                 <div>
                   <div style={{ fontSize: 13, color: '#EDE8DF', fontWeight: 500 }}>FastAPI Backend Health</div>
                   <div style={{ fontSize: 11, color: '#6B6560' }}>GET /api/health</div>
@@ -608,7 +614,7 @@ export default function Settings({ navigate }: Props) {
                 </span>
               </div>
 
-              <div style={{ padding: '14px 18px', background: '#141312', border: '1px solid #1C1B19', borderRadius: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 sm:p-4" style={{ background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
                 <div>
                   <div style={{ fontSize: 13, color: '#EDE8DF', fontWeight: 500 }}>SQLite Database File</div>
                   <div style={{ fontSize: 11, color: '#6B6560' }}>backend/brandforge.db</div>
@@ -618,7 +624,7 @@ export default function Settings({ navigate }: Props) {
                 </span>
               </div>
 
-              <div style={{ padding: '14px 18px', background: '#141312', border: '1px solid #1C1B19', borderRadius: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 sm:p-4" style={{ background: '#141312', border: '1px solid #1C1B19', borderRadius: 6 }}>
                 <div>
                   <div style={{ fontSize: 13, color: '#EDE8DF', fontWeight: 500 }}>Isolated Port Guard</div>
                   <div style={{ fontSize: 11, color: '#6B6560' }}>RecoverAI on Port 8000 · BrandForge on Port 8001</div>
@@ -629,7 +635,7 @@ export default function Settings({ navigate }: Props) {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 10 }}>
+            <div className="flex flex-wrap gap-2.5">
               <button
                 onClick={() => navigate('overview')}
                 style={{

@@ -403,7 +403,7 @@ export default function BrandGuard({
   }
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1100px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Toast */}
       {toastMessage && (
         <div
@@ -431,7 +431,7 @@ export default function BrandGuard({
       )}
 
       {/* Header */}
-      <div style={{ marginBottom: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span style={S.label}>GOVERNANCE & COMPLIANCE</span>
@@ -441,9 +441,9 @@ export default function BrandGuard({
             </span>
           </div>
           <h1
+            className="text-2xl sm:text-3xl lg:text-4xl"
             style={{
               fontFamily: 'Fraunces, Georgia, serif',
-              fontSize: 32,
               fontWeight: 300,
               color: '#EDE8DF',
               margin: '0 0 6px',
@@ -458,7 +458,7 @@ export default function BrandGuard({
         </div>
 
         {/* Action Header Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
           <button
             onClick={() => navigate('content-studio')}
             style={{

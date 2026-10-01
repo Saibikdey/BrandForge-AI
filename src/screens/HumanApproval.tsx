@@ -408,7 +408,7 @@ export default function HumanApproval({
   const canApprove = isAuditCurrent && (auditStatus === 'pass' || auditStatus === 'warning')
 
   return (
-    <div style={S.page}>
+    <div className="w-full max-w-[1180px] mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-12 box-border">
       {/* Toast */}
       {toastMessage && (
         <div
@@ -436,7 +436,7 @@ export default function HumanApproval({
       )}
 
       {/* Header */}
-      <div style={{ marginBottom: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span style={S.label}>GOVERNANCE & HUMAN-IN-THE-LOOP</span>
@@ -446,9 +446,9 @@ export default function HumanApproval({
             </span>
           </div>
           <h1
+            className="text-2xl sm:text-3xl lg:text-4xl"
             style={{
               fontFamily: 'Fraunces, Georgia, serif',
-              fontSize: 32,
               fontWeight: 300,
               color: '#EDE8DF',
               margin: '0 0 6px',
@@ -463,7 +463,7 @@ export default function HumanApproval({
         </div>
 
         {/* Action Header Navigation */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="flex flex-wrap gap-2.5 items-center w-full sm:w-auto">
           <button
             onClick={() => navigate('brand-guard')}
             style={{
@@ -868,7 +868,7 @@ export default function HumanApproval({
           )}
 
           {/* Dual Column: Preview (Left) vs Revision Editor (Right) */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 24 }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
             {/* Left Column: Live Content Preview */}
             <div style={{ ...S.card, padding: 24 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
@@ -1283,10 +1283,10 @@ export default function HumanApproval({
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
-            padding: 20,
+            padding: 16,
           }}
         >
-          <div style={{ ...S.card, padding: 32, maxWidth: 520, width: '100%', background: '#141312' }}>
+          <div className="w-full max-w-lg p-5 sm:p-8 max-h-[90vh] overflow-y-auto rounded-lg border border-[#252320] bg-[#141312] box-border">
             <div style={{ ...S.label, color: '#C4813A', marginBottom: 8 }}>REQUEST EDITORIAL CHANGES</div>
             <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, color: '#EDE8DF', margin: '0 0 12px', fontWeight: 400 }}>
               What should be changed?
@@ -1348,10 +1348,10 @@ export default function HumanApproval({
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 100,
-            padding: 20,
+            padding: 16,
           }}
         >
-          <div style={{ ...S.card, padding: 32, maxWidth: 500, width: '100%', background: '#141312' }}>
+          <div className="w-full max-w-lg p-5 sm:p-8 max-h-[90vh] overflow-y-auto rounded-lg border border-[#252320] bg-[#141312] box-border">
             <div style={{ ...S.label, color: '#C45858', marginBottom: 8 }}>REJECT CONTENT</div>
             <h3 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 20, color: '#EDE8DF', margin: '0 0 12px', fontWeight: 400 }}>
               Are you sure you want to reject this content?
