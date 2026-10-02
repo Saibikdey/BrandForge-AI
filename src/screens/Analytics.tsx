@@ -8,7 +8,6 @@ import {
   ClockIcon,
   ShieldCheckIcon,
   CopyIcon,
-  FilterIcon,
 } from '../components/Icons'
 import { api } from '../services/api'
 import type {

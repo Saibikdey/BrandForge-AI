@@ -4,7 +4,21 @@ from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 from ..database import get_db, seed_initial_brand_data
-from ..models import Campaign, CampaignStrategy, CampaignContent, Brand, Product
+from ..models import (
+    Campaign,
+    CampaignStrategy,
+    CampaignContent,
+    Brand,
+    Product,
+    ContentRevision,
+    ApprovalAction,
+    ContentAudit,
+    AuditFinding,
+    CampaignPerformance,
+    ContentSchedule,
+    PublishingEvent,
+    CampaignLearningSource,
+)
 from ..schemas import (
     CampaignCreate,
     CampaignResponse,
@@ -68,6 +82,72 @@ def get_campaign(campaign_id: str, db: Session = Depends(get_db)):
     if not campaign:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Campaign {campaign_id} not found")
     return campaign
+
+
+@router.delete("/{campaign_id}", status_code=status.HTTP_200_OK)
+def delete_campaign(campaign_id: str, db: Session = Depends(get_db)):
+    """Delete a campaign and safely cascade-delete all associated contents, strategies, audits, schedules, and metrics."""
+    campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
+    if not campaign:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Campaign {campaign_id} not found")
+
+    # 1. Collect content IDs and schedule IDs
+    contents = db.query(CampaignContent).filter(CampaignContent.campaign_id == campaign_id).all()
+    content_ids = [c.id for c in contents]
+
+    schedules = db.query(ContentSchedule).filter(
+        (ContentSchedule.campaign_id == campaign_id) | 
+        (ContentSchedule.campaign_content_id.in_(content_ids) if content_ids else False)
+    ).all()
+    schedule_ids = [s.id for s in schedules]
+
+    # 2. Delete publishing events
+    if schedule_ids:
+        db.query(PublishingEvent).filter(PublishingEvent.schedule_id.in_(schedule_ids)).delete(synchronize_session=False)
+
+    # 3. Delete content schedules
+    if schedule_ids:
+        db.query(ContentSchedule).filter(ContentSchedule.id.in_(schedule_ids)).delete(synchronize_session=False)
+
+    # 4. Delete audit findings and audits
+    if content_ids:
+        audits = db.query(ContentAudit).filter(ContentAudit.campaign_content_id.in_(content_ids)).all()
+        audit_ids = [a.id for a in audits]
+        if audit_ids:
+            db.query(AuditFinding).filter(AuditFinding.audit_id.in_(audit_ids)).delete(synchronize_session=False)
+        db.query(ContentAudit).filter(ContentAudit.campaign_content_id.in_(content_ids)).delete(synchronize_session=False)
+
+        # 5. Delete revisions and approval actions
+        db.query(ContentRevision).filter(ContentRevision.campaign_content_id.in_(content_ids)).delete(synchronize_session=False)
+        db.query(ApprovalAction).filter(ApprovalAction.campaign_content_id.in_(content_ids)).delete(synchronize_session=False)
+
+    # 6. Delete performance records
+    db.query(CampaignPerformance).filter(
+        (CampaignPerformance.campaign_id == campaign_id) |
+        (CampaignPerformance.campaign_content_id.in_(content_ids) if content_ids else False)
+    ).delete(synchronize_session=False)
+
+    # 7. Delete learning sources
+    db.query(CampaignLearningSource).filter(
+        (CampaignLearningSource.campaign_id == campaign_id) |
+        (CampaignLearningSource.campaign_content_id.in_(content_ids) if content_ids else False)
+    ).delete(synchronize_session=False)
+
+    # 8. Delete campaign contents
+    if content_ids:
+        db.query(CampaignContent).filter(CampaignContent.campaign_id == campaign_id).delete(synchronize_session=False)
+
+    # 9. Delete strategies
+    db.query(CampaignStrategy).filter(CampaignStrategy.campaign_id == campaign_id).delete(synchronize_session=False)
+
+    # 10. Delete campaign
+    db.delete(campaign)
+    db.commit()
+
+    return {
+        "message": f"Campaign {campaign_id} deleted successfully",
+        "deleted_campaign_id": campaign_id,
+    }
 
 
 @router.post("/{campaign_id}/generate-strategies", response_model=List[StrategyResponse])

@@ -2228,6 +2228,59 @@ class TestBrandForgeWorkflow(unittest.TestCase):
         self.assertEqual(updated_data["brand"]["tagline"], '"Elevating creative operations at scale."')
         self.assertEqual(updated_data["brand"]["stage"], "Enterprise Growth")
 
+    def test_29_delete_campaign_cascade(self):
+        # 1. Create a campaign to delete
+        create_res = self.client.post("/api/campaigns", json={
+            "name": "Campaign to Delete",
+            "product_name": "Arkiva Pro Delete Test",
+            "objective": "Lead Generation",
+            "audience": "Test Audience",
+            "duration": "1 week",
+            "platforms": ["instagram", "linkedin"],
+        })
+        self.assertEqual(create_res.status_code, 201)
+        camp = create_res.json()
+        camp_id = camp["id"]
+
+        # Generate strategies
+        strat_res = self.client.post(f"/api/campaigns/{camp_id}/generate-strategies")
+        self.assertEqual(strat_res.status_code, 200)
+        strats = strat_res.json()
+        self.assertTrue(len(strats) > 0)
+        strat_id = strats[0]["id"]
+
+        # Generate content
+        gen_res = self.client.post(f"/api/campaigns/{camp_id}/content/generate", json={
+            "strategy_id": strat_id,
+            "platforms": ["instagram"],
+        })
+        self.assertIn(gen_res.status_code, [200, 201])
+        contents = gen_res.json()
+        self.assertTrue(len(contents) > 0)
+        content_id = contents[0]["id"]
+
+        # Audit content
+        audit_res = self.client.post(f"/api/content/{content_id}/audit")
+        self.assertEqual(audit_res.status_code, 200)
+
+        # 2. Test deleting a non-existent campaign
+        non_existent_res = self.client.delete("/api/campaigns/non-existent-uuid-1234")
+        self.assertEqual(non_existent_res.status_code, 404)
+
+        # 3. Delete the created campaign
+        del_res = self.client.delete(f"/api/campaigns/{camp_id}")
+        self.assertEqual(del_res.status_code, 200)
+        del_data = del_res.json()
+        self.assertEqual(del_data["deleted_campaign_id"], camp_id)
+
+        # 4. Verify campaign is gone
+        get_res = self.client.get(f"/api/campaigns/{camp_id}")
+        self.assertEqual(get_res.status_code, 404)
+
+        # 5. Verify contents query for deleted campaign returns 404
+        get_content_res = self.client.get(f"/api/campaigns/{camp_id}/content")
+        self.assertEqual(get_content_res.status_code, 404)
+
 
 if __name__ == "__main__":
     unittest.main()

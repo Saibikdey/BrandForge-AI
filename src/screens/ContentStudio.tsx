@@ -280,7 +280,7 @@ export default function ContentStudio({
       }
       try {
         const sched = await api.getContentSchedule(activeContent.id)
-        setActiveSchedule(sched)
+        setActiveSchedule(Array.isArray(sched) ? sched[0] || null : sched)
       } catch (err) {
         setActiveSchedule(null)
       }
@@ -295,6 +295,7 @@ export default function ContentStudio({
     try {
       const combinedDateTime = new Date(`${schedDate}T${schedTime || '19:00'}:00`).toISOString()
       const sched = await api.scheduleContent(activeContent.id, {
+        platform: activeContent.platform,
         scheduled_at: combinedDateTime,
         timezone: schedTz,
       })

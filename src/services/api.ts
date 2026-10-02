@@ -78,6 +78,11 @@ export const api = {
 
   getCampaign: (id: string) => request<CampaignData>(`/campaigns/${id}`),
 
+  deleteCampaign: (campaignId: string) =>
+    request<{ message: string; deleted_campaign_id: string }>(`/campaigns/${campaignId}`, {
+      method: 'DELETE',
+    }),
+
   // Strategy Generation
   generateStrategies: (campaignId: string) =>
     request<StrategyDirection[]>(`/campaigns/${campaignId}/generate-strategies`, {
