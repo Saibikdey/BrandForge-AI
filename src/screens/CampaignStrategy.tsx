@@ -111,21 +111,29 @@ export default function CampaignStrategy({
   useEffect(() => {
     async function loadCampaignData() {
       let campId = effectiveCampaignId
-      if (!campId) {
-        try {
-          const list = await api.getCampaigns()
-          if (list && list.length > 0) {
+      try {
+        const list = await api.getCampaigns()
+        if (list && list.length > 0) {
+          if (!campId || !list.some(c => c.id === campId)) {
             campId = list[0].id
             if (typeof window !== 'undefined') {
               localStorage.setItem('brandforge_active_campaign_id', campId)
             }
           }
-        } catch (e) {
-          // ignore
+        } else {
+          campId = null
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('brandforge_active_campaign_id')
+          }
         }
+      } catch (e) {
+        // ignore
       }
 
-      if (!campId) return
+      if (!campId) {
+        setLoading(false)
+        return
+      }
 
       setLoading(true)
       try {

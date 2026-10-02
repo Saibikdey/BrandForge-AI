@@ -124,13 +124,20 @@ export default function Campaigns({ navigate, onCampaignSelected }: Props) {
       await api.deleteCampaign(campaignToDelete.id)
 
       // Remove deleted campaign from state immediately
-      setCampaigns(prev => prev.filter(c => c.id !== campaignToDelete.id))
+      const remaining = campaigns.filter(c => c.id !== campaignToDelete.id)
+      setCampaigns(remaining)
 
-      // Clear from localStorage if it was active
+      // Clear or reassign active campaign in localStorage & parent state
       if (typeof window !== 'undefined') {
         const storedId = localStorage.getItem('brandforge_active_campaign_id')
         if (storedId === campaignToDelete.id) {
-          localStorage.removeItem('brandforge_active_campaign_id')
+          if (remaining.length > 0) {
+            localStorage.setItem('brandforge_active_campaign_id', remaining[0].id)
+            if (onCampaignSelected) onCampaignSelected(remaining[0].id)
+          } else {
+            localStorage.removeItem('brandforge_active_campaign_id')
+            if (onCampaignSelected) onCampaignSelected('')
+          }
         }
       }
 

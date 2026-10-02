@@ -59,21 +59,29 @@ export default function App() {
     return null
   })
 
-  // Auto-discover latest campaign from backend if not yet set in session
+  // Auto-discover latest campaign from backend or validate existing activeCampaignId
   useEffect(() => {
     async function initCampaign() {
-      if (!activeCampaignId) {
-        try {
-          const list = await api.getCampaigns()
-          if (list && list.length > 0) {
-            setActiveCampaignId(list[0].id)
-            if (typeof window !== 'undefined') {
-              localStorage.setItem('brandforge_active_campaign_id', list[0].id)
-            }
+      try {
+        const list = await api.getCampaigns()
+        if (!list || list.length === 0) {
+          setActiveCampaignId(null)
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('brandforge_active_campaign_id')
           }
-        } catch (err) {
-          console.error('Failed to auto-discover active campaign:', err)
+          return
         }
+
+        // If activeCampaignId is missing or points to a non-existent/deleted campaign
+        if (!activeCampaignId || !list.some(c => c.id === activeCampaignId)) {
+          const fallbackId = list[0].id
+          setActiveCampaignId(fallbackId)
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('brandforge_active_campaign_id', fallbackId)
+          }
+        }
+      } catch (err) {
+        console.error('Failed to auto-discover active campaign:', err)
       }
     }
     initCampaign()

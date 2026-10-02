@@ -107,19 +107,24 @@ export default function ContentStudio({
     async function loadData() {
       let campId = effectiveCampaignId
 
-      // Auto-discover latest campaign if not set
-      if (!campId) {
-        try {
-          const allCampaigns = await api.getCampaigns()
-          if (allCampaigns && allCampaigns.length > 0) {
+      // Validate campaign existence or discover latest campaign
+      try {
+        const allCampaigns = await api.getCampaigns()
+        if (allCampaigns && allCampaigns.length > 0) {
+          if (!campId || !allCampaigns.some(c => c.id === campId)) {
             campId = allCampaigns[0].id
             if (typeof window !== 'undefined') {
               localStorage.setItem('brandforge_active_campaign_id', campId)
             }
           }
-        } catch (e) {
-          console.warn('Could not discover existing campaigns:', e)
+        } else {
+          campId = null
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('brandforge_active_campaign_id')
+          }
         }
+      } catch (e) {
+        console.warn('Could not validate existing campaigns:', e)
       }
 
       if (!campId) {

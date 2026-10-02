@@ -141,18 +141,23 @@ export default function HumanApproval({
     async function loadData() {
       let campId = effectiveCampaignId
 
-      if (!campId) {
-        try {
-          const list = await api.getCampaigns()
-          if (list && list.length > 0) {
+      try {
+        const list = await api.getCampaigns()
+        if (list && list.length > 0) {
+          if (!campId || !list.some(c => c.id === campId)) {
             campId = list[0].id
             if (typeof window !== 'undefined') {
               localStorage.setItem('brandforge_active_campaign_id', campId)
             }
           }
-        } catch (e) {
-          console.warn('Could not discover existing campaigns:', e)
+        } else {
+          campId = null
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('brandforge_active_campaign_id')
+          }
         }
+      } catch (e) {
+        console.warn('Could not validate existing campaigns:', e)
       }
 
       if (!campId) {

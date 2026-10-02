@@ -74,23 +74,14 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
     conversions: 35,
   })
 
-  // Load campaigns list
+  // Sync incoming activeCampaignId prop
   useEffect(() => {
-    async function loadCampaigns() {
-      try {
-        const list = await api.getCampaigns()
-        setCampaigns(list || [])
-        if (activeCampaignId && list.some(c => c.id === activeCampaignId)) {
-          setSelectedCampaignId(activeCampaignId)
-        }
-      } catch (err) {
-        console.warn('Failed to load campaigns for analytics:', err)
-      }
+    if (activeCampaignId) {
+      setSelectedCampaignId(activeCampaignId)
     }
-    loadCampaigns()
   }, [activeCampaignId])
 
-  // Load analytics whenever filters change
+  // Load analytics whenever selection or filters change
   useEffect(() => {
     loadAnalyticsData()
   }, [selectedCampaignId, dateRange, platformFilter, metricSort])
@@ -99,7 +90,40 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
     setLoading(true)
     setErrorMessage(null)
     try {
-      if (selectedCampaignId === 'all') {
+      // 1. Fetch campaigns list to verify existence
+      const list = await api.getCampaigns().catch(() => [])
+      setCampaigns(list || [])
+
+      // 2. Determine target campaign ID and verify it exists
+      let targetId = selectedCampaignId
+
+      if (targetId !== 'all') {
+        const exists = list && list.some(c => c.id === targetId)
+        if (!exists) {
+          // Stale ID detected: clear from localStorage if matching
+          if (typeof window !== 'undefined') {
+            const storedId = localStorage.getItem('brandforge_active_campaign_id')
+            if (storedId === targetId) {
+              localStorage.removeItem('brandforge_active_campaign_id')
+            }
+          }
+
+          // Select an existing campaign if one exists, otherwise fallback to global 'all'
+          if (list && list.length > 0) {
+            targetId = list[0].id
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('brandforge_active_campaign_id', targetId)
+            }
+          } else {
+            targetId = 'all'
+          }
+
+          setSelectedCampaignId(targetId)
+        }
+      }
+
+      // 3. Request analytics based on verified targetId
+      if (targetId === 'all') {
         const data = await api.getAnalytics({
           date_range: dateRange,
           platform: platformFilter === 'all' ? undefined : platformFilter,
@@ -108,7 +132,7 @@ export default function Analytics({ navigate, activeCampaignId }: Props) {
         setGlobalData(data)
         setCampaignData(null)
       } else {
-        const data = await api.getCampaignAnalytics(selectedCampaignId, {
+        const data = await api.getCampaignAnalytics(targetId, {
           date_range: dateRange,
           platform: platformFilter === 'all' ? undefined : platformFilter,
           metric: metricSort,
